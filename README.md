@@ -1,4 +1,4 @@
-# AlarmMP3 - Download link at the bottom
+# AlarmMP3 
 Alarm with SWING and MVC
 
 It's more like a chronometer, use the 3 fields to specify time or fill with 0 if is not necessary.
