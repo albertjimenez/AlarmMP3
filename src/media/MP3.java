@@ -27,14 +27,6 @@ public class MP3 {
 
 	// reproduce le mp3 en la tarjeta de sonido predterminada
 	public void play() {
-		// try {
-
-		// BufferedInputStream bis = new BufferedInputStream(fis);
-		// player = new Player(bis);
-		// } catch (Exception e) {
-		// System.out.println("Problem playing file " + filename);
-		// System.out.println(e);
-		// }
 		try {
 			// FileInputStream fis = new FileInputStream(filename);
 			BufferedInputStream bis = new BufferedInputStream(filename);
@@ -44,8 +36,6 @@ public class MP3 {
 			System.out.println(e);
 		}
 
-		// correo el proceso en un nuevo hilo para deterner la ejecucion del
-		// programa
 		new Thread() {
 			public void run() {
 				try {

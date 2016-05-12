@@ -87,9 +87,6 @@ public class View {
 				h = Integer.parseInt(hour.getText());
 				m = Integer.parseInt(minute.getText());
 				s = Integer.parseInt(second.getText());
-				// h = 0;
-				// m = 0;
-				// s = 5;
 
 			} catch (Exception e2) {
 				h = 0;
