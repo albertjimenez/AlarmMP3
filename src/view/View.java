@@ -25,7 +25,6 @@ public class View {
 	private ControllerAlarm myController;
 	private JFrame window;
 	private static boolean soundRepeat = true;
-	private static boolean userSound = false;
 	// TODO implement that in the future
 	private JFileChooser fileChooser;
 	private Alarm myAlarmController;
