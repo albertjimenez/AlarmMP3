@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -57,7 +58,7 @@ public class View {
 		JTextField fieldMinute = new JTextField(2);
 		JLabel secondLabel = new JLabel("Segundos: ");
 		JTextField fieldSecond = new JTextField(2);
-		JButton button = new JButton("Iniciar / Parar", new ImageIcon(getClass().getResource("/media/alarm.png")));
+		JButton button = new JButton("Iniciar", new ImageIcon(getClass().getResource("/media/alarm.png")));
 		JLabel label = new JLabel(myAlarmController.toString());
 		JButton buttonMP3 = new JButton("Cargar MP3", new ImageIcon(getClass().getResource("/media/loadmusic.png")));
 		// Adds
@@ -150,7 +151,14 @@ public class View {
 								myMp3.play();
 								soundRepeat = false;
 								jlabel.setText("TEMPORIZADOR");
-
+								if (JOptionPane.showConfirmDialog(null, "TIEMPO FINALIZADO", "Aviso",
+										JOptionPane.DEFAULT_OPTION, JOptionPane.OK_CANCEL_OPTION,
+										new ImageIcon(getClass()
+												.getResource("/media/vault-.png"))) == JOptionPane.OK_OPTION) {
+									myMp3.close();
+									soundRepeat = true;
+									time.cancel();
+								}
 							}
 						}
 
@@ -175,7 +183,17 @@ public class View {
 								myMp3.play();
 								soundRepeat = false;
 								jlabel.setText("ALARMA");
+								if (JOptionPane.showConfirmDialog(null, "TIEMPO FINALIZADO", "Aviso",
+										JOptionPane.DEFAULT_OPTION, JOptionPane.OK_CANCEL_OPTION,
+										new ImageIcon(getClass()
+												.getResource("/media/vault-.png"))) == JOptionPane.OK_OPTION) {
+									myMp3.close();
+									soundRepeat = true;
+									time.cancel();
+								}
+
 							}
+
 						} else {
 
 							jlabel.setText(currentAlarm.toString());
