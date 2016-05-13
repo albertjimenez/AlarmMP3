@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Calendar;
+
 public class Alarm {
 	private int hour;
 	private int minute;
@@ -16,6 +18,21 @@ public class Alarm {
 		this.minute = minute;
 		this.second = second;
 	}
+
+	public Alarm(Calendar c) {
+		this.hour = c.get(Calendar.HOUR_OF_DAY);
+		this.minute = c.get(Calendar.MINUTE);
+		this.second = c.get(Calendar.SECOND);
+	}
+	// AdriBall:
+	// public Alarm(long milliseconds) {
+	// this.hour = (int) (milliseconds / 3600000);
+	// milliseconds = milliseconds % 360000;
+	// this.minute = (int) milliseconds / 60000;
+	// milliseconds = milliseconds % 60000;
+	// this.second = (int) (milliseconds / 1000);
+	//
+	// }
 
 	public void clear() {
 		hour = 0;
@@ -52,7 +69,12 @@ public class Alarm {
 
 	}
 
-	// TODO
+	public Calendar getMyCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), hour, minute, second);
+		return c;
+	}
+
 	public void increment() {
 		boolean keepCount = false;
 		if (minute == 59 && second == 59) {
