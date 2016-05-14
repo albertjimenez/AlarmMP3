@@ -28,9 +28,10 @@ public class View {
 
 	private ControllerAlarm myController;
 	private JFrame window;
+	private Timer time;
 	private static boolean soundRepeat = true;
 	private JFileChooser fileChooser;
-	private Alarm myAlarmController;
+	// private Alarm myAlarmController;
 	private ButtonGroup buttonGroup;
 	private JRadioButton timerRadioButton, alarmRadioButton;
 
@@ -41,7 +42,8 @@ public class View {
 		buttonGroup = new ButtonGroup();
 		timerRadioButton = new JRadioButton("Temporizador");
 		alarmRadioButton = new JRadioButton("Alarma");
-		myAlarmController = myController.getMyAlarm();
+		time = new Timer();
+		// myAlarmController = myController.getMyAlarm();
 
 	}
 
@@ -59,7 +61,9 @@ public class View {
 		JLabel secondLabel = new JLabel("Segundos: ");
 		JTextField fieldSecond = new JTextField(2);
 		JButton button = new JButton("Iniciar", new ImageIcon(getClass().getResource("/media/alarm.png")));
-		JLabel label = new JLabel(myAlarmController.toString());
+		JLabel label = new JLabel("--:--:--");
+		// JButton stopButton = new JButton("Iniciar", new
+		// ImageIcon(getClass().getResource("/media/stop.png")));
 		JButton buttonMP3 = new JButton("Cargar MP3", new ImageIcon(getClass().getResource("/media/loadmusic.png")));
 		// Adds
 		timerRadioButton.setSelected(true);
@@ -73,10 +77,15 @@ public class View {
 		panel.add(secondLabel);
 		panel.add(fieldSecond);
 		panel.add(button);
+		// panel.add(stopButton);
 		panel.add(buttonMP3);
 		// Actions
+
+		// stopButton.addActionListener(new StopButtonAction(time, label));
 		ActionsTimeAlarm accion = new ActionsTimeAlarm(label, fieldHour, fieldMinute, fieldSecond, false,
 				timerRadioButton);
+		fieldHour.addActionListener(accion);
+		fieldMinute.addActionListener(accion);
 		fieldSecond.addActionListener(accion);
 		button.addActionListener(accion);
 		buttonMP3.addActionListener(
@@ -137,16 +146,18 @@ public class View {
 				s = 0;
 			}
 
-			final Alarm alarm = new Alarm(h, m, s);
-			myController.setMyAlarm(alarm);
-			Timer time = new Timer();
+			// final Alarm alarm = new Alarm(h, m, s);
+			myController.setHour(h);
+			myController.setMinute(m);
+			myController.setSecond(s);
 			MP3 myMp3 = loadFileMP3(isAnotherMP3);
 			if (isTimerSelected.isSelected()) {
+
 				time.schedule(new TimerTask() {
 
 					@Override
 					public void run() {
-						if (alarm.isNew()) {
+						if (myController.isNew()) {
 							if (soundRepeat) {
 								myMp3.play();
 								soundRepeat = false;
@@ -163,8 +174,8 @@ public class View {
 						}
 
 						else {
-							jlabel.setText(alarm.toString());
-							alarm.decrement();
+							jlabel.setText(myController.getStringTime());
+							myController.decrement();
 
 						}
 
@@ -173,12 +184,13 @@ public class View {
 			} // Fin del IF
 			else {
 				time.schedule(new TimerTask() {
+
 					private Alarm currentAlarm = new Alarm(new GregorianCalendar());
 
 					@Override
 					public void run() {
 
-						if (currentAlarm.equals(alarm)) {
+						if (myController.equals(currentAlarm)) {
 							if (soundRepeat) {
 								myMp3.play();
 								soundRepeat = false;
@@ -202,6 +214,7 @@ public class View {
 
 					}
 				}, 0, 1000);
+
 			}
 
 		}
@@ -225,4 +238,21 @@ public class View {
 		return mp3;
 	}
 
+	// class StopButtonAction implements ActionListener {
+	// private Timer t;
+	// private JLabel jlabel;
+	//
+	// public StopButtonAction(Timer t, JLabel jLabel) {
+	// this.t = t;
+	// this.jlabel = jLabel;
+	// }
+	//
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// jlabel.setText("CANCELADO");
+	// t.cancel();
+	//
+	// }
+	//
+	// }
 }

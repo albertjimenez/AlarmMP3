@@ -33,13 +33,26 @@ public class ControllerAlarm {
 		myAlarm.decrement();
 	}
 
-	public Alarm getMyAlarm() {
-		return myAlarm;
+	public boolean isNew() {
+		return myAlarm.isNew();
 	}
 
-	public void setMyAlarm(Alarm myAlarm) {
-		this.myAlarm = myAlarm;
+	public String getStringTime() {
+		return myAlarm.toString();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Alarm a = (Alarm) obj;
+		return a.equals(myAlarm);
+	}
+	// public Alarm getMyAlarm() {
+	// return myAlarm;
+	// }
+	//
+	// public void setMyAlarm(Alarm myAlarm) {
+	// this.myAlarm = myAlarm;
+	// }
 	// public int getHour() {
 	// return myAlarm.getHour();
 	// }
