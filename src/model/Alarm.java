@@ -175,6 +175,7 @@ public class Alarm {
 			c += "0" + hour;
 		else
 			c += hour;
+		
 		c += separador;
 		if (minute <= 9)
 			c += "0" + minute;
